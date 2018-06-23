@@ -1,16 +1,19 @@
-<div class="container clearfix mt-3">
-  <h2 class="text-center">Lista dostupnih artikala</h2>
-  <div class="form-row float-right">
-    <div class="mr-1">
-      <input type="search" class="form-control" placeholder="Pretraga" />
+<div class="container mt-3">
+  <h2 class="text-center mb-2">Lista dostupnih artikala</h2>
+  <div class="clearfix mb-2">
+    <div class="form-row float-right">
+      <div class="mr-1">
+        <input type="search" class="form-control" placeholder="Pretraga" />
+      </div>
+      <div>
+        <button class="btn">
+          <i class="fa fa-search"></i>
+        </button>
+      </div>
     </div>
-    <div>
-      <button class="btn">
-        <i class="fa fa-search"></i>
-      </button>
-    </div>
-    <div>
-      <!-- OVDE RUKOVATI LISTOM ARTIKALA -->
-    </div>
+  </div>
+
+  <div>
+    <app-artikal-item *ngFor="let artikal of artikli" [artikal]="artikal"></app-artikal-item>
   </div>
 </div>

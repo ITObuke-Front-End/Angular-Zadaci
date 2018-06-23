@@ -1,0 +1,21 @@
+<div class="card w-75 mx-auto my-5">
+  <div class="row">
+    <div class="col-5">
+      <div class="card-img">
+        <img src="{{artikal.slikaUrl ? 'assets/images/' + artikal.slikaUrl : 'assets/images/no_image.jpg'}}" />
+      </div>
+    </div>
+    <div class="col-7">
+      <div class="card-body h-100" style="position: relative">
+        <h4 class="card-title">{{ (artikal.naziv.length>35) ? (artikal.naziv | slice:0:35)+'...': (artikal.naziv) }}</h4>
+        <p class="card-text">
+          <span class="font-weight-bold">Opis:</span> {{  artikal.opis ? (artikal.opis| slice:0:200) : 'Za artikal nije dodat opis.'}}
+          <br />
+          <span class="font-weight-bold">Tip artikla:</span> {{artikal.tipArtikla}}
+        </p>
+        <div *ngIf="artikal.cena != -1" class="artikal-cena position-absolute font-weight-bold">Cena: {{artikal.cena}}€</div>
+        <div class="artikal-sifra position-absolute text-muted">Šifra: {{artikal.sifra}}</div>
+      </div>
+    </div>
+  </div>
+</div>

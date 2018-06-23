@@ -24,5 +24,5 @@ export const ARTIKLI: Artikal[] = [
 
      { id: 7, sifra: '8DXL12D4', cena: 50.99,  naziv: 'Joy-Con',
      opis: 'Add a splash of style to your Nintendo Switch console with Joy-Con controllers and Joy-Con straps.',
-    tipArtikla: 'Prehrambeni proizvod', slikaUrl: 'nintendoJoyCon.jpg'}
+    tipArtikla: 'Dodaci za konzole', slikaUrl: 'nintendoJoyCon.jpg'}
 ];
