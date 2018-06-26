@@ -1,6 +1,6 @@
 import { Artikal } from '../models/Artikal';
 
-export const ARTIKLI: Artikal[] = [
+export let ARTIKLI: Artikal[] = [
     { id: 1, sifra: '257FRET3', cena: 319.99,  naziv: 'Nintendo Switch',
      opis: 'Nintendo Switch is designed to go wherever you do, transforming from home console to portable system in a snap.'
      + ' So you get more time to play the games you love, however you like.', tipArtikla: 'Konzola', slikaUrl: 'nintendoSwitch.jpg'},
