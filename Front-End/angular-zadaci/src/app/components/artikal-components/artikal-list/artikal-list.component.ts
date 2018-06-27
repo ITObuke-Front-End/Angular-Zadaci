@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Artikal } from '../../../models/Artikal';
-import { ARTIKLI } from '../../../mock/mock-artikli';
+import { ArtikalService } from '../../../services/artikal.service';
 
 @Component({
   selector: 'app-artikal-list',
@@ -9,11 +9,17 @@ import { ARTIKLI } from '../../../mock/mock-artikli';
 })
 export class ArtikalListComponent implements OnInit {
 
-  artikli: Artikal[] = ARTIKLI;
+  artikli: Artikal[];;
 
-  constructor() { }
+  constructor(private artikalService: ArtikalService) { }
+
+  getArtikli(): void {
+    this.artikalService.getArtikli()
+    .subscribe( artikli => this.artikli = artikli);
+  }
 
   ngOnInit() {
+    this.getArtikli();
   }
 
 }
