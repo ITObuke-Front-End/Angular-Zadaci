@@ -22,11 +22,11 @@ namespace web_shop.Controllers
         }
 
         [ResponseType(typeof(ArtikalDto))]
-        public IHttpActionResult GetAll(String naziv="")
+        public IHttpActionResult GetAll(String naziv=null)
         {
             List<ArtikalDto> artikalDtoList = new List<ArtikalDto>();
             
-            if (naziv.Equals(""))
+            if (naziv == null)
             {
                 foreach (Artikal artikal in db.ArtikalRepository.Get())
                 {
@@ -54,25 +54,21 @@ namespace web_shop.Controllers
         public IHttpActionResult PostArtikal(ArtikalDto artikalDto)
         {
             Artikal artikal = new Artikal(artikalDto);
+            artikal.TipArtiklaId = db.TipArtiklaRepository.Get(x => x.Naziv.Equals(artikalDto.TipArtikla)).FirstOrDefault().Id;
             db.ArtikalRepository.Insert(artikal);
             db.Save();
             return Ok(new ArtikalDto(db.ArtikalRepository.Get(a => a.Id == artikal.Id, includeProperties: "TipArtikla").FirstOrDefault()));
         }
 
         [ResponseType(typeof(ArtikalDto))]
-        public IHttpActionResult PutArtikal(int id, ArtikalDto artikal)
+        public IHttpActionResult PutArtikal(ArtikalDto artikalDto)
         {
-            var loadedArtikal = db.ArtikalRepository.GetByID(id);
-            loadedArtikal.Naziv = artikal.Naziv;
-            loadedArtikal.Sifra = artikal.Sifra;
-            loadedArtikal.Cena = artikal.Cena;
-            loadedArtikal.Opis = artikal.Opis;
-            loadedArtikal.SlikaUrl = artikal.SlikaUrl;
-            loadedArtikal.TipArtiklaId = artikal.TipArtiklaId;
-            db.ArtikalRepository.Update(loadedArtikal);
+            Artikal artikal = new Artikal(artikalDto);
+            artikal.TipArtiklaId = db.TipArtiklaRepository.Get(x => x.Naziv.Equals(artikalDto.TipArtikla)).FirstOrDefault().Id;
+            db.ArtikalRepository.Update(artikal);
             db.Save();
 
-            return Ok(artikal);
+            return Ok(artikalDto);
         }
 
         [ResponseType(typeof(ArtikalDto))]

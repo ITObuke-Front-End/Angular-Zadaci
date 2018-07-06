@@ -17,8 +17,7 @@ namespace web_shop.Dtos
             Cena = artikal.Cena;
             Opis = artikal.Opis;
             SlikaUrl = artikal.SlikaUrl;
-            TipArtiklaId = artikal.TipArtiklaId;
-            TipArtiklaNaziv = artikal.TipArtikla.Naziv;
+            TipArtikla = artikal.TipArtikla.Naziv;
         }
 
         public int Id { get; set; }
@@ -33,8 +32,6 @@ namespace web_shop.Dtos
 
         public String SlikaUrl { get; set; }
 
-        public int TipArtiklaId { get; set; }
-
-        public String TipArtiklaNaziv { get; set; }
+        public String TipArtikla { get; set; }
     }
 }

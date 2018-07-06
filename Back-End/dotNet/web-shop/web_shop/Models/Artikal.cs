@@ -18,7 +18,7 @@ namespace web_shop.Models
             Naziv = artikalDto.Naziv;
             Opis = artikalDto.Opis;
             SlikaUrl = artikalDto.SlikaUrl;
-            TipArtiklaId = artikalDto.TipArtiklaId;
+            Cena = artikalDto.Cena;
         }
 
         public int Id { get; set; }
