@@ -19,7 +19,7 @@ import com.example.webshop.models.TipArtikla;
 import com.example.webshop.services.TipArtiklaService;
 
 @RestController
-@RequestMapping("api/tip-artikla")
+@RequestMapping("api/tipArtikla")
 public class TipArtiklaController {
 	
 	private TipArtiklaService service;
