@@ -7,7 +7,7 @@
     </div>
     <div class="col-7">
       <div class="card-body h-100" style="position: relative">
-        <h4 class="card-title">{{ (artikal.naziv.length>35) ? (artikal.naziv | slice:0:35)+'...': (artikal.naziv) }}</h4>
+        <h4 class="card-title" routerLink="/edit/{{artikal.id}}">{{ (artikal.naziv.length>35) ? (artikal.naziv | slice:0:35)+'...': (artikal.naziv) }}</h4>
         <p class="card-text">
           <span class="font-weight-bold">Opis:</span> {{  artikal.opis ? (artikal.opis| slice:0:200) : 'Za artikal nije dodat opis.'}}
           <br />

@@ -1,5 +1,3 @@
-
-
 export class Artikal {
     id: number;
     sifra: string;

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
+
 import { Artikal } from '../../../models/Artikal';
 import { ArtikalService } from '../../../services/artikal.service';
 
@@ -7,19 +10,27 @@ import { ArtikalService } from '../../../services/artikal.service';
   templateUrl: './artikal-list.component.html',
   styleUrls: ['./artikal-list.component.css']
 })
-export class ArtikalListComponent implements OnInit {
+export class ArtikalListComponent implements OnInit, AfterViewInit {
 
-  artikli: Artikal[];;
+  artikli$: Observable<Artikal[]>;
+  private searchTerm = new Subject<string>();
 
   constructor(private artikalService: ArtikalService) { }
 
-  getArtikli(): void {
-    this.artikalService.getArtikli()
-    .subscribe( artikli => this.artikli = artikli);
+  search(term: string) {
+    this.searchTerm.next(term);
   }
 
   ngOnInit() {
-    this.getArtikli();
+    this.artikli$ = this.searchTerm.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap((term: string) => this.artikalService.searchArtikli(term))
+    );
+  }
+
+  ngAfterViewInit(): void {
+    this.search('');
   }
 
 }

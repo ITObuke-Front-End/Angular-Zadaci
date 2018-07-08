@@ -18,3 +18,7 @@
 .card {
     border-color: rgb(187, 196, 197);
 }
+
+.card-title {
+    cursor: pointer;
+}

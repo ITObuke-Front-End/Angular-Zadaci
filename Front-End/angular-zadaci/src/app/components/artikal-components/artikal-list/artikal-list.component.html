@@ -3,7 +3,7 @@
   <div class="clearfix mb-2">
     <div class="form-row float-right">
       <div class="mr-1">
-        <input type="search" class="form-control" placeholder="Pretraga" />
+        <input type="search" class="form-control" id="searchBox" #searchBox (keyup)="search(searchBox.value)" placeholder="Pretraga" />
       </div>
       <div>
         <button class="btn">
@@ -11,12 +11,16 @@
         </button>
       </div>
     </div>
+    <div class="form-row float-left">
+      <div>
+        <button class="btn btn-info" routerLink="/add">
+          <i class="fa fa-add"></i>Dodaj artikal
+        </button>
+      </div>
+    </div>
   </div>
 
   <div>
-    <app-artikal-item *ngFor="let artikal of artikli" [artikal]="artikal"></app-artikal-item>
-  </div>
-  <div class="my-3 section-break">
-    <app-artikal-add></app-artikal-add>
+    <app-artikal-item *ngFor="let artikal of artikli$ | async" [artikal]="artikal"></app-artikal-item>
   </div>
 </div>
