@@ -12,7 +12,7 @@ export class ArtikalService {
 
   getArtikli(): Observable<Artikal[]> {
     this.messageService.add('ArtikalService: Učitani artikli');
-    return of(ARTIKLI);// privremeno resenje, bice promenjeno kada se uvede komunikacija s back-end-om
+    return of(ARTIKLI); // privremeno resenje, bice promenjeno kada se uvede komunikacija s back-end-om
   }
 
   addArtikal(artikal: Artikal): Observable<Artikal> {
