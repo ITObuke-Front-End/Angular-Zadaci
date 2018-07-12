@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label for="tipArtikla">Tip artikla</label>
                 <select class="form-control" id="tipArtikla" #tipArtikla tabindex="5" required>
-                    <option *ngFor="let t of tipovi" [ngValue]="t.naziv">{{t.naziv}}</option>
+                    <option *ngFor="let t of tipovi" [ngValue]="t.naziv" [selected]="t.naziv === odabraniTip">{{t.naziv}}</option>
                 </select>
             </div>
 
