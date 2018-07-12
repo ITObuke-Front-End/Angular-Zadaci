@@ -16,11 +16,12 @@ import { TipArtiklaService } from '../../../services/tip-artikla.service';
 export class ArtikalAddComponent implements OnInit {
   artikal: Artikal;
   tipovi: TipArtikla[] = [];
+  inicijalnoOdabraniTip: string;
 
   constructor(private router: Router,
-              private location: Location,
-              private artikalService: ArtikalService,
-              private tipArtiklaService: TipArtiklaService) {
+    private location: Location,
+    private artikalService: ArtikalService,
+    private tipArtiklaService: TipArtiklaService) {
     this.artikal = new Artikal();
   }
 
@@ -30,7 +31,7 @@ export class ArtikalAddComponent implements OnInit {
 
   getTipovi() {
     this.tipArtiklaService.getTipovi().subscribe(
-      t => { this.tipovi = t; this.tipovi.unshift({id: -1, naziv: '-', opis: ''}); }
+      t => { this.tipovi = t; this.inicijalnoOdabraniTip = this.tipovi[0].naziv; }
     );
   }
 
@@ -43,10 +44,10 @@ export class ArtikalAddComponent implements OnInit {
     this.artikal.slikaUrl = '';
 
     this.artikalService.addArtikal(this.artikal)
-    .subscribe((artikal: Artikal) =>  {
-      alert('Artikal ' + artikal.naziv + ' je uspešno dodat!');
-      this.router.navigate(['/artikli']);
-    });
+      .subscribe((artikal: Artikal) => {
+        alert('Artikal ' + artikal.naziv + ' je uspešno dodat!');
+        this.router.navigate(['/artikli']);
+      });
   }
 
   goBack() {
