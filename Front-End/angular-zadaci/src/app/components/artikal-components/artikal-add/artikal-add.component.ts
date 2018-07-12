@@ -31,16 +31,15 @@ export class ArtikalAddComponent implements OnInit {
 
   getTipovi() {
     this.tipArtiklaService.getTipovi().subscribe(
-      t => { this.tipovi = t; this.inicijalnoOdabraniTip = this.tipovi[0].naziv; }
+      t => { this.tipovi = t; this.artikal.tipArtikla = this.tipovi[0].naziv; }
     );
   }
 
-  addArtikal(sifra: string, naziv: string, cena: number, opis: string, tipArtikla: string) {
+  addArtikal(sifra: string, naziv: string, cena: number, opis: string) {
     this.artikal.sifra = sifra;
     this.artikal.naziv = naziv;
     this.artikal.cena = cena;
     this.artikal.opis = opis;
-    this.artikal.tipArtikla = tipArtikla;
     this.artikal.slikaUrl = '';
 
     this.artikalService.addArtikal(this.artikal)
