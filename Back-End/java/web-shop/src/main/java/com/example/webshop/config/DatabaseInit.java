@@ -5,31 +5,69 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.example.webshop.models.Role;
 import com.example.webshop.models.TipArtikla;
+import com.example.webshop.models.User;
 import com.example.webshop.models.dto.ArtikalDTO;
+import com.example.webshop.repositories.RoleRepository;
 import com.example.webshop.repositories.TipArtiklaRepository;
+import com.example.webshop.repositories.UserRepository;
 import com.example.webshop.services.ArtikalService;
 
 @Component
 public class DatabaseInit {
 
 	private TipArtiklaRepository tipArtiklaRepository;
-
 	private ArtikalService artikalService;
+	private UserRepository userRepository;
+	private RoleRepository roleRepository;
+	private BCryptPasswordEncoder passwordEncoder;
+
+	private Role admin;
+	private Role kupac;
 
 	@Autowired
-	public DatabaseInit(TipArtiklaRepository tipArtiklaRepository, ArtikalService artikalService) {
+	public DatabaseInit(TipArtiklaRepository tipArtiklaRepository, ArtikalService artikalService,
+			UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder) {
 		super();
 		this.tipArtiklaRepository = tipArtiklaRepository;
 		this.artikalService = artikalService;
+		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	@PostConstruct
 	public void init() {
+		rolesInit();
+		usersInit();
 		tipoviInit();
 		artikliInit();
+	}
+
+	private void rolesInit() {
+		if (((List<Role>) roleRepository.findAll()).isEmpty()) {
+			admin = new Role("ROLE_ADMIN");
+			kupac = new Role("ROLE_KUPAC");
+			roleRepository.save(admin);
+			roleRepository.save(kupac);
+		} else {
+			admin = roleRepository.findByName("ROLE_ADMIN");
+			kupac = roleRepository.findByName("ROLE_KUPAC");
+		}
+	}
+
+	private void usersInit() {
+		if (((List<User>) userRepository.findAll()).isEmpty()) {
+			userRepository
+					.save(new User("admin@admin.com", passwordEncoder.encode("admin"), "Admin", "Adminovic", admin));
+			userRepository.save(new User("aaa@aaa.com", passwordEncoder.encode("aaaaaa"), "Aaa", "Aaa", kupac));
+			userRepository.save(new User("bbb@bbb.com", passwordEncoder.encode("bbbbbb"), "Bbb", "Bbb", kupac));
+			userRepository.save(new User("ccc@ccc.com", passwordEncoder.encode("cccccc"), "Ccc", "Ccc", kupac));
+		}
 	}
 
 	private void tipoviInit() {

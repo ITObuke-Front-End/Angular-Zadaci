@@ -12,6 +12,8 @@ import { ArtikalService } from './services/artikal.service';
 import { MessageService } from './services/message.service';
 import { MessageListComponent } from './components/message-components/message-list/message-list.component';
 import { AppRoutingModule } from './/app-routing.module';
+import { LoginComponent } from './components/login/login.component';
+import { KorpaComponent } from './components/artikal-components/korpa/korpa.component';
 
 
 
@@ -22,7 +24,9 @@ import { AppRoutingModule } from './/app-routing.module';
     ArtikalItemComponent,
     ArtikalAddComponent,
     MessageListComponent,
-    ArtikalEditComponent
+    ArtikalEditComponent,
+    LoginComponent,
+    KorpaComponent
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,7 @@ import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operato
 
 import { Artikal } from '../../../models/Artikal';
 import { ArtikalService } from '../../../services/artikal.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-artikal-list',
@@ -15,7 +16,7 @@ export class ArtikalListComponent implements OnInit, AfterViewInit {
   artikli$: Observable<Artikal[]>;
   private searchTerm = new Subject<string>();
 
-  constructor(private artikalService: ArtikalService) { }
+  constructor(private artikalService: ArtikalService, private authService: AuthService) { }
 
   search(term: string) {
     this.searchTerm.next(term);

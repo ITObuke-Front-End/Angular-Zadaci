@@ -1,7 +1,6 @@
 package com.example.webshop.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,33 +23,8 @@ public class TipArtiklaService {
 		return (List<TipArtikla>) repository.findAll();
 	}
 
-	public TipArtikla save(TipArtikla tipArtikla) {
-		tipArtikla.setId(null);
-		return repository.save(tipArtikla);
-	}
-
-	public TipArtikla update(TipArtikla tipArtikla) {
-		if (!repository.findById(tipArtikla.getId()).isPresent()) {
-			return null;
-		}
-		
-		return repository.save(tipArtikla);
-	}
-
-	public TipArtikla delete(long id) {
-		Optional<TipArtikla> artikal = repository.findById(id);
-
-		if (artikal.isPresent()) {
-			repository.deleteById(id);
-			return artikal.get();
-		}
-
-		return null;
-	}
-
 	public TipArtikla findOne(Long id) {
-		Optional<TipArtikla> tipArtikla = repository.findById(id);
-		return tipArtikla.isPresent() ? tipArtikla.get() : null;
+		return repository.findOne(id);
 	}
 
 }

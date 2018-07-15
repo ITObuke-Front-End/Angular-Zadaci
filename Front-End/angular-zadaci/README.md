@@ -1,27 +1,18 @@
-# AngularZadaci
+# Web Shop Angular aplikacija
+## Basic Authentication
+Postoje dve vrste korisnika: **administratori** i **kupci**.
+Administratori mogu da vide artikle, dodaju nove i menjaju postojeće. Dostupne su im rute: */artikli*, */add* i */edit/:id*.
+Kupci mogu da vide artikli i da ih dodaju u kopru (radi jednostavnosti nema odabira količine niti uklanjanja artikala iz korpe). Svaki korisnik vidi samo artikle iz svoje korpe. Dostupne su im rute: */artikli* i */korpa*.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+### Back-end
+Pre prvog pokretanja back-end-a obrisati bazu.
+Inicijalno su dodati sledeći korisnici:
+  - username: admin@admin.com, password: admin, uloga: administrator
+  - username: aaa@aaa.com, password: aaaaaa, uloga: kupac
+  - username: bbb@bbb.com, password: bbbbbb, uloga: kupac
+  - username: ccc@ccc.com, password: cccccc, uloga: kupac
 
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Frond-end
+Obratiti pažnju na:
+  - **AuthService**, čuvanje kredencijala u *localStorage*-u i generisanje *HttpHeader*-a za sve HTTP zahteve.
+  - **AppRoutingModule**, postavljanje uslova pod kojima se mogu pojedine rute ativirati.

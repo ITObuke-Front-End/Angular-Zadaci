@@ -16,7 +16,6 @@ import { TipArtiklaService } from '../../../services/tip-artikla.service';
 export class ArtikalAddComponent implements OnInit {
   artikal: Artikal;
   tipovi: TipArtikla[] = [];
-  inicijalnoOdabraniTip: string;
 
   constructor(private router: Router,
     private location: Location,

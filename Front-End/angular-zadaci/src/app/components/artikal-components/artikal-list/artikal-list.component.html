@@ -11,10 +11,17 @@
         </button>
       </div>
     </div>
-    <div class="form-row float-left">
+    <div class="form-row float-left" *ngIf="authService.role == 'ROLE_ADMIN'">
       <div>
         <button class="btn btn-info" routerLink="/add">
           <i class="fa fa-add"></i>Dodaj artikal
+        </button>
+      </div>
+    </div>
+    <div class="form-row float-left" *ngIf="authService.role == 'ROLE_KUPAC'">
+      <div>
+        <button class="btn btn-info" routerLink="/korpa">
+          <i class="fa fa-shopping-cart"></i> Moja korpa
         </button>
       </div>
     </div>

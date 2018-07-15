@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,13 +51,15 @@ public class ArtikalController {
 	}
 
 	@PostMapping
+	@Secured("ROLE_ADMIN")
 	public ResponseEntity<ArtikalDTO> post(@RequestBody ArtikalDTO artikal) {
 		return new ResponseEntity<ArtikalDTO>(service.save(artikal), HttpStatus.CREATED);
 	}
 
-	@PutMapping
-	public ResponseEntity<ArtikalDTO> put(@RequestBody ArtikalDTO artikal) {
-		ArtikalDTO dto = service.update(artikal);
+	@PutMapping(value = "{id}")
+	@Secured("ROLE_ADMIN")
+	public ResponseEntity<ArtikalDTO> put(@RequestBody ArtikalDTO artikal, @PathVariable Long id) {
+		ArtikalDTO dto = service.update(artikal, id);
 		if (dto == null) {
 			return new ResponseEntity<ArtikalDTO>(HttpStatus.NOT_FOUND);
 		}
@@ -64,6 +67,7 @@ public class ArtikalController {
 	}
 
 	@DeleteMapping(value = "{id}")
+	@Secured("ROLE_ADMIN")
 	@ResponseBody
 	public ResponseEntity<ArtikalDTO> delete(@PathVariable Long id) {
 		ArtikalDTO dto = service.delete(id);

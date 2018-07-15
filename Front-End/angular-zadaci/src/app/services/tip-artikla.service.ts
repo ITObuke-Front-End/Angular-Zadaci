@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { MessageService } from './message.service';
 import { TipArtikla } from './../models/TipArtikla';
 import { environment } from '../../environments/environment';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,13 @@ import { environment } from '../../environments/environment';
 export class TipArtiklaService {
   private tipoviUrl = environment.apiBaseUrl + '/tipArtikla/';
 
-  constructor(private httpClient: HttpClient, private messageService: MessageService) { }
+  constructor(private httpClient: HttpClient,
+              private messageService: MessageService,
+              private authService: AuthService) { }
 
   getTipovi(): Observable<TipArtikla[]> {
     return this.httpClient
-      .get<TipArtikla[]>(this.tipoviUrl)
+      .get<TipArtikla[]>(this.tipoviUrl, {headers: this.authService.getHeaders()})
       .pipe(
         tap(_ => this.log(`Učitani tipova artikala`)),
         catchError(this.handleError<TipArtikla[]>('getTipovi', [])));

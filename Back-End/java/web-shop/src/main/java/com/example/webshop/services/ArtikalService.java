@@ -1,7 +1,6 @@
 package com.example.webshop.services;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +33,14 @@ public class ArtikalService {
 		return new ArtikalDTO(artikalRepository.save(artikal));
 	}
 
-	public ArtikalDTO update(ArtikalDTO artikalDTO) {
-		if (!artikalRepository.findById(artikalDTO.getId()).isPresent()) {
+	public ArtikalDTO update(ArtikalDTO artikalDTO, Long id) {
+		if (artikalRepository.findOne(id) == null) {
 			return null;
 		}
 
 		TipArtikla tipArtikla = tipArtiklaRepository.findByNaziv(artikalDTO.getTipArtikla());
 		Artikal artikal = artikalDTO.convert();
-		artikal.setId(artikalDTO.getId());
+		artikal.setId(id);
 		artikal.setTipArtikla(tipArtikla);
 
 		return new ArtikalDTO(artikalRepository.save(artikal));
@@ -53,19 +52,19 @@ public class ArtikalService {
 	}
 
 	public ArtikalDTO delete(Long id) {
-		Optional<Artikal> artikal = artikalRepository.findById(id);
+		Artikal artikal = artikalRepository.findOne(id);
 
-		if (artikal.isPresent()) {
-			artikalRepository.deleteById(id);
-			return new ArtikalDTO(artikal.get());
+		if (artikal == null) {
+			artikalRepository.delete(id);
+			return new ArtikalDTO(artikal);
 		}
 
 		return null;
 	}
 
 	public ArtikalDTO findOne(Long id) {
-		Optional<Artikal> artikal = artikalRepository.findById(id);
-		return artikal.isPresent() ? new ArtikalDTO(artikal.get()) : null;
+		Artikal artikal = artikalRepository.findOne(id);
+		return artikal != null ? new ArtikalDTO(artikal) : null;
 	}
 
 	public List<ArtikalDTO> findByNaziv(String naziv) {
